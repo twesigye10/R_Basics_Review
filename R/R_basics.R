@@ -10,3 +10,7 @@ print(fruits)
 
 some_numbers <- c(1:10)
 print(some_numbers)
+
+# check data type using class() function
+class(fruits)
+class(some_numbers)
