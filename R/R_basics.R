@@ -52,3 +52,20 @@ my_data_frame
 
 class(my_data_frame)
 
+# some useful functions
+# paste()
+my_name <- "Anthony"
+my_name_string <- paste("My name is: ", my_name)
+print(my_name_string)
+
+# runif
+my_random_numbers <- runif(20, 100,230)
+print(my_random_numbers)
+
+?runif
+
+# rep
+my_repeat <- rep(fruits, each= 5)
+print(my_repeat)
+
+
