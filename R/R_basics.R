@@ -68,4 +68,51 @@ print(my_random_numbers)
 my_repeat <- rep(fruits, each= 5)
 print(my_repeat)
 
+## Arithmetic Operators
+# + :Addition
+# -:Subtraction
+# * :Multiplication
+# / :Division
+# ^ :Exponent
+# %% :Modulus (Remainder from division)
+# %/% :Integer Division
+
+## Relational Operators
+# < :Less than
+# > :Greater than
+# <= :Less than or equal to
+# >= :Greater than or equal to
+# == :Equal to
+# != :Not equal to
+
+## Logical Operators
+
+# !: Logical NOT
+# & :Element-wise logical AND
+# && :Logical AND
+# | :Element-wise logical OR
+# || :Logical OR
+
+## Assignment Operators
+# <-, <<-, = :Leftwards assignment
+# ->, ->> :Rightwards assignment
+
+if(my_name %in% my_name_string ){
+  print(paste("My name is: ", my_name))
+}
+
+if(my_name %in% my_name_string ){
+  print(paste("My name is: ", my_name))
+}else{
+  print(paste("My name: ", my_name, "is not in the string"))
+}
+
+
+# creating functions
+
+
+
+# convert to tible
+my_data_tibble <- tibble::as_tibble(my_data_frame)
+my_data_tibble
 
