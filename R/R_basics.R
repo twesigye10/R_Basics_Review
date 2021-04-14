@@ -97,22 +97,39 @@ print(my_repeat)
 # <-, <<-, = :Leftwards assignment
 # ->, ->> :Rightwards assignment
 
-if(my_name %in% my_name_string ){
-  print(paste("My name is: ", my_name))
-}
-
-if(my_name %in% my_name_string ){
+if(my_name %in% c("amos", "mathias", "anthony") ){
   print(paste("My name is: ", my_name))
 }else{
-  print(paste("My name: ", my_name, "is not in the string"))
+  print(paste("My name: ", input_1, "is not in the vector"))
 }
 
 
-# creating functions
+## creating functions
+# function_name <- function(argument_1, argument_2, ...) {
+# Function body
+# }
+
+# # Checking an element in a vector
+
+my_function <- function(input_1, input_2){
+  if(input_1 %in% input_2 ){
+    final_output <- paste("My name is: ", input_1)
+  }else{
+    final_output <- paste("My name: ", input_1, "is not in the vector")
+  }
+  
+  return(final_output )
+}
+
+my_out_text <-  my_function("amos", c("amos", "mathias", "anthony"))
+print(my_out_text)
 
 
+# Adding two numbers using a function
+my_addition_function <- function(input_1, input_2){
+  my_add_number <- input_1 + input_2
+  return(my_add_number)
+}
 
-# convert to tible
-my_data_tibble <- tibble::as_tibble(my_data_frame)
-my_data_tibble
-
+my_add_two_numbers <- my_addition_function(250,165)
+print(my_add_two_numbers)
