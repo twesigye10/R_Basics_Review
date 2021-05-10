@@ -1,0 +1,156 @@
+---
+title: "Into to sf package"
+author: "Anthony Twesigye"
+date: "10/05/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+
+
+## Intro
+
+
+### Load data & Libraries
+
+```{r load_libs_data}
+
+library(sf)
+library(tidyverse)
+
+admin <-  sf::st_read(dsn = "inputs", layer = "uganda_regions")
+admin
+
+```
+
+### visualize sf
+
+```{r ggplot_sf}
+ggplot()+
+  geom_sf(data = admin)
+
+```
+
+### Create some sample point data
+
+```{r }
+pt_sample <- st_sample(x = admin, size = 600)
+class(pt_sample)
+class(admin)
+
+ggplot()+
+  geom_sf(data = admin)+
+  geom_sf(data = pt_sample)
+
+```
+
+### spatial joints
+- pt_did not have data frame. Used st_as_sf to give data frame which allows spatial join
+```{r }
+pt_sample <- pt_sample %>% 
+  st_as_sf() %>% 
+  st_join(admin) %>% 
+  select(Region)
+
+```
+
+### spatial verification
+- rename pt sample to target_sample, add pt id
+- create hh interview by jittering 150m, removing pt id, and randomly shuffling rows
+
+```{r }
+target_sample <- pt_sample %>% 
+  mutate(pt_id = row_number())
+
+hh_interviews <- target_sample %>% 
+  st_jitter(amount = 150) %>% 
+  select(-pt_id) %>% 
+  sample_n(nrow(.))
+
+```
+
+### Find closest point
+- create index to closest feature
+```{r }
+target_sample_index <- hh_interviews %>% 
+  st_nearest_feature(target_sample)
+
+closest_pt_distances <- hh_interviews %>% 
+  st_distance(target_sample[target_sample_index,], by_element = TRUE)
+closest_pt_distances[1:20]
+
+```
+
+- first create enumerator_id to mimic assessment data
+```{r}
+hh_interviews %>% 
+  mutate(enumerator_id = rep(1:10,60))
+
+```
+
+- build a function which combines these steps
+
+```{r, distance_function}
+
+mutate_nearest_feature <- function(x, y) {
+  y_index <- x %>% 
+  st_nearest_feature(y)
+
+closest_distance <- x %>% 
+  st_distance(y[y_index,], by_element = TRUE)
+
+x %>% 
+  mutate(
+    y_index = y_index,
+    closest_distance = closest_distance
+  )
+
+}
+
+```
+
+- test out function
+
+```{r run_function}
+mutate_nearest_feature(x=hh_interviews, y = target_sample)
+
+hh_w_target <- hh_interviews %>% 
+  mutate_nearest_feature(target_sample)
+
+# hh_w_target <- hh_interviews %>% 
+#   butteR::mutate_nearest_feature(target_sample)
+
+```
+
+
+- filter to entries greater than or equal to 150m
+```{r }
+# hh_w_target %>% 
+#   filter(as.numeric(closest_distance>=150))
+
+```
+
+
+### find distance to taarget point by point ID
+
+```{r}
+
+hh_interviews <- target_sample %>% 
+  st_jitter(amount = 150) %>% 
+  mutate(enumeratoer_id = rep(1:10, 60)) %>% 
+  sample_n(nrow(.))
+
+pt_id_index <- hh_interviews$pt_id
+distance_to_target <-  st_distance(x=hh_interviews, y = target_sample[pt_id_index,], by_element = TRUE)
+
+distance_to_target[1:10]
+
+```
+
+### Task 1: Turn above code into function to measure distance to target ID using above code
+
+### Task 2:
