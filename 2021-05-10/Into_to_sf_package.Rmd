@@ -22,8 +22,14 @@ knitr::opts_chunk$set(echo = TRUE)
 library(sf)
 library(tidyverse)
 
+# # get default directory
+# current_wd <- getwd()
+# # change to the working directory
+# setwd("2021-05-10")
 admin <-  sf::st_read(dsn = "inputs", layer = "uganda_regions")
 admin
+# # reset to default directory
+# setwd(current_wd)
 
 ```
 
@@ -98,17 +104,17 @@ hh_interviews %>%
 
 mutate_nearest_feature <- function(x, y) {
   y_index <- x %>% 
-  st_nearest_feature(y)
-
-closest_distance <- x %>% 
-  st_distance(y[y_index,], by_element = TRUE)
-
-x %>% 
-  mutate(
-    y_index = y_index,
-    closest_distance = closest_distance
-  )
-
+    st_nearest_feature(y)
+  
+  closest_distance <- x %>% 
+    st_distance(y[y_index,], by_element = TRUE)
+  
+  x %>% 
+    mutate(
+      y_index = y_index,
+      closest_distance = closest_distance
+    )
+  
 }
 
 ```
@@ -129,13 +135,13 @@ hh_w_target <- hh_interviews %>%
 
 - filter to entries greater than or equal to 150m
 ```{r }
-# hh_w_target %>% 
-#   filter(as.numeric(closest_distance>=150))
+hh_w_target %>%
+  filter(as.numeric(closest_distance) >= 150)
 
 ```
 
 
-### find distance to taarget point by point ID
+### find distance to target point by point ID
 
 ```{r}
 
@@ -152,5 +158,40 @@ distance_to_target[1:10]
 ```
 
 ### Task 1: Turn above code into function to measure distance to target ID using above code
+- Need some clarity on the filtering with indices indices.
+
+```{r dist_to_target}
+distance_to_target_id  <- function(input_x, input_y) {
+  
+  pt_id_index <- input_x$pt_id
+  distance_to_target <-  st_distance(x=input_x, y = input_y[input_y$pt_id==pt_id_index,], by_element = TRUE)
+  
+  input_x %>% 
+    mutate(
+      pt_id_index = pt_id_index,
+      distance_to_target = distance_to_target
+    )
+  
+}
+
+```
+
+- Run Task 1
+```{r run_task_1}
+# random hh_inteviews
+hh_interviews <- target_sample %>% 
+  st_jitter(amount = 150) %>% 
+  mutate(enumeratoer_id = rep(1:10, 60)) %>% 
+  sample_n(nrow(.)) %>% 
+  arrange(pt_id)
+
+# run the function
+task_1_output <- distance_to_target_id(hh_interviews, target_sample)
+
+# check output
+task_1_output %>% 
+  filter(as.numeric(distance_to_target) >= 150)
+
+```
 
 ### Task 2:
