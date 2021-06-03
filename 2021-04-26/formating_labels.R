@@ -12,4 +12,6 @@ my_data %>%
   geom_bar(stat = "identity")+
   scale_y_continuous(labels = scales::comma)
 
-  
+
+# using comma format
+scales::comma(10000000.135, scale = 1, big.mark = ",")
