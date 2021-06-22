@@ -1,0 +1,20 @@
+---
+title: "Intro to Spatial Verification"
+author: "Anthony Twesigye"
+date: "15/06/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Basic steps for spatial Verification
+
+- Download data from Kobo
+- Extract a subset data of a day of interest
+- Add the extracted data to a map
+- Add the sample points to the same map
+- Calculate the distances btn collected points and sampled points
+- Highlight points that are at a greater distnce(>150m)
+- Create output map
