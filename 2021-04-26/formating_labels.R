@@ -15,3 +15,7 @@ my_data %>%
 
 # using comma format
 scales::comma(10000000.135, scale = 1, big.mark = ",")
+
+my_num <- scales::number_format( scale = 1, big.mark = ",")(10000000.135)
+class(my_num)
+
