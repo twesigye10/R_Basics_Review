@@ -38,4 +38,4 @@ target_sample_index <-  df_collect_data_pts %>%
   st_nearest_feature(df_sample_pts)
 # find_some_dist <- st_distance(df_collect_data_pts[df_collect_data_pts$point_number == df_sample_pts$OBJECTID,], df_sample_pts, by_element = T)
 # testing one single point "22"
-find_some_dist <- st_distance(df_collect_data_pts[df_collect_data_pts$point_number == 22,], df_sample_pts[df_sample_pts$OBJECTID == 22,], by_element = T)
+find_some_dist <- st_distance(df_collect_data_pts[df_collect_data_pts$point_number == 73,], df_sample_pts[df_sample_pts$OBJECTID == 73,], by_element = T)
