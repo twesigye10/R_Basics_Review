@@ -1,0 +1,20 @@
+---
+title: "getting started with data checks"
+author: "Anthony Twesigye"
+date: "23/06/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Basic steps
+-	Download the data from **Kobo** using the same format **.XLS**. You should select **XML values and headers**
+- Filter according to the date, and refugee_settlement or district/subcounty
+- Sort by enumerator
+- separate the start and end columns into their hours, minutes, and seconds
+- Get time interval of the survey
+- Get time interval between surveys
+-
+-
