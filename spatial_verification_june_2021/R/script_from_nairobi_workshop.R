@@ -33,7 +33,11 @@ plot(Bidibidi_settlement)
 
 # now we can check all of the assessment points and see which ones were above 25 m away.
 
-points_more_than_25m_from_target<-butteR::check_distances_from_target(dataset = df,target_points = target_points,dataset_coordinates = c("X_gps_reading_longitude","X_gps_reading_latitude"),cols_to_report = c("X_uuid", "enumerator_id", "union_name"),distance_threshold = 25)
+points_more_than_25m_from_target<-butteR::check_distances_from_target(dataset = df,
+                                                                      target_points = target_points,
+                                                                      dataset_coordinates = c("X_gps_reading_longitude","X_gps_reading_latitude"),
+                                                                      cols_to_report = c("X_uuid", "enumerator_id", "union_name"),
+                                                                      distance_threshold = 25)
 
 ?butteR::check_distances_from_target
 
