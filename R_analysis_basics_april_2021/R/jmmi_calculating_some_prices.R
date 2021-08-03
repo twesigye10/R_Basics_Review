@@ -38,16 +38,20 @@ df_jmmi_ref_subset_settlement <- df_jmmi_ref_subset %>%
     DISTRICT = ifelse(settlement == "rhino", "arua", DISTRICT)
   ) %>% 
   left_join(district_data, by = c("DISTRICT" = "district")) %>% 
-  rename(region = F15Regions) %>% 
-  select(country, region, DISTRICT, everything()) %>% 
+  rename(region = F15Regions, district = DISTRICT) %>% 
+  select(country, region, district, everything()) %>% 
   mutate(
     region = case_when(
       region %in% c("WEST NILE", "ACHOLI", "BUNYORO") ~ "west nile",
-      region %in% c("ANKOLE", "TORO") ~ "South western",
+      region %in% c("ANKOLE", "TORO") ~ "south western",
+      district == "hoima" ~ "south western",
       TRUE ~ region
-      
+    ),
+    region = case_when(
+      district == "hoima" ~ "south western",
+      TRUE ~ region
     )
-  )
+  )  
 
 
 # write output ------------------------------------------------------------
