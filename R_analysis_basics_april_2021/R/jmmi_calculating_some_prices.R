@@ -1,3 +1,5 @@
+# extracting some information for Dave to check with his values
+
 library(tidyverse)
 
 df_jmmi_ref <- read_csv("inputs/202003_market_monitoring_cleaned.csv")
@@ -48,7 +50,7 @@ df_jmmi_ref_subset_settlement <- df_jmmi_ref_subset %>%
       TRUE ~ region
     ),
     region = case_when(
-      district == "hoima" ~ "south western",
+      district %in% c("hoima", "masindi") ~ "south western",
       TRUE ~ region
     )
   )  
