@@ -14,8 +14,8 @@ my_data %>%
 
 
 # using comma format
-scales::comma(10000000.135, scale = 1, big.mark = ",")
+scales::comma(10000000.135, scale = 1, big.mark = ",", accuracy = 1)
 
-my_num <- scales::number_format( scale = 1, big.mark = ",")(10000000.135)
+my_num <- scales::number_format(accuracy = 1, scale = 1, big.mark = ",")(10000000.135)
 class(my_num)
 
