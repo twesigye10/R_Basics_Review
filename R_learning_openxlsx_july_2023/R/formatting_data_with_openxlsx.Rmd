@@ -1,0 +1,40 @@
+---
+title: "Formatting with writeData and writeDataTable"
+author: "AT"
+date: "2023-07-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(openxlsx)
+```
+
+## data.frame to write
+
+```{r}
+df <- data.frame("Date" = Sys.Date()-0:4,
+                 "Logical" = c(TRUE, FALSE, TRUE, TRUE, FALSE),
+                 "Currency" = paste("$",-2:2),
+                 "Accounting" = -2:2,
+                 "hLink" = "https://CRAN.R-project.org/", 
+                 "Percentage" = seq(-1, 1, length.out=5),
+                 "TinyNumber" = runif(5) / 1E9, stringsAsFactors = FALSE)
+
+class(df$Currency) <- "currency"
+class(df$Accounting) <- "accounting"
+class(df$hLink) <- "hyperlink"
+class(df$Percentage) <- "percentage"
+class(df$TinyNumber) <- "scientific"
+```
+
+## Formatting can be applied simply through the write functions
+## global options can be set to further simplify things
+
+```{r}
+
+```
+
+
+
