@@ -51,6 +51,36 @@ writeData(wb = wb_format, sheet = 1, x = df_to_format, startRow = 30, startCol =
 
 ## headerStyles
 
+hs1_formatting <- createStyle(fgFill = "#4F81BD", halign = "CENTER", textDecoration = "Bold", border = "Bottom", fontColour = "white")
+
+writeData(wb = wb_format, sheet = 1, x = df_to_format, startRow = 16, startCol = 10, headerStyle = hs1_formatting, borders = "rows", borderStyle = "medium")
+
+## to change the display text for a hyperlink column just write over those cells
+
+writeData(wb = wb_format, sheet = 1, x = paste("Hyperlink", 1:5), startRow = 17, startCol = 14)
+
+## writing as an Excel Table
+
+addWorksheet(wb_format, "writeDataTable")
+
+writeDataTable(wb = wb_format, sheet = 2, x = df_to_format, startRow = 2, startCol = 2)
+writeDataTable(wb = wb_format, sheet = 2, x = df_to_format, startRow = 9, startCol = 2, tableStyle = "TableStyleLight9")
+writeDataTable(wb = wb_format, sheet = 2, x = df_to_format, startRow = 16, startCol = 2, tableStyle = "TableStyleLight2")
+writeDataTable(wb = wb_format, sheet = 2, x = df_to_format, startRow = 23, startCol = 2, tableStyle = "TableStyleMedium21")
+
+# loading styles from another file
+
+template_file <- loadWorkbook("support_files/MSNA2022_Livelihood_tables.xlsx")
+
+template_styles <- getStyles(template_file)
+
+hs2_formatting <- createStyle(fgFill = "#EE5859", halign = "CENTER", textDecoration = "Bold", border = "Bottom", fontColour = "white")
+
+writeDataTable(wb = wb_format, sheet = 2, x = df_to_format, startRow = 30, startCol = 2, tableStyle = "TableStyleMedium21", headerStyle = hs2_formatting)
+
+# openXL(wb_format) ## opens a temp version
+
+saveWorkbook(wb_format, "outputs/testing_formatting_openxls.xlsx", overwrite = TRUE)
 ```
 
 
